@@ -1,1 +1,1 @@
-Hello world this is a plan text heloo world file.
+Hello world this is a plain text hello world file.
