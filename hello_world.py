@@ -1,5 +1,0 @@
-print('hello world')
-print ('merging')
-print('adding a line')
-print('adding a line')
-print('now compiles')
