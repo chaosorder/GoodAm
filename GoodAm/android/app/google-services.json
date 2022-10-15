@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "541770806381",
+    "project_id": "goodalarm-ca57a",
+    "storage_bucket": "goodalarm-ca57a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:541770806381:android:39cfcacb02da8d2048bb64",
+        "android_client_info": {
+          "package_name": "com.goodam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "541770806381-3prnmcl555bfnna1ffrgcl3d30c74g6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMzqKbwFq8X2fiYkm4OZlxAORMiqgxWk0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "541770806381-3prnmcl555bfnna1ffrgcl3d30c74g6g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "541770806381-nnv66aiqu3f41srpr62382nbh78g9avv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.GoodAm"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
