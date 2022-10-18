@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>541770806381-nnv66aiqu3f41srpr62382nbh78g9avv.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.541770806381-nnv66aiqu3f41srpr62382nbh78g9avv</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCbKPfiUlU5I0GQSGDcfi_DtckuXQEi8_8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>541770806381</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.reactjs.native.example.GoodAm</string>
+	<key>PROJECT_ID</key>
+	<string>goodalarm-ca57a</string>
+	<key>STORAGE_BUCKET</key>
+	<string>goodalarm-ca57a.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:541770806381:ios:c4cc2c68d7dc4f5748bb64</string>
+</dict>
+</plist>
