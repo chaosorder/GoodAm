@@ -1,32 +1,34 @@
 import RootNavigator from './navigation/RootNavigator';
-import React, { useState, useEffect } from 'react';
-import { View, Text , StatusBar, StyleSheet, Button} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, StatusBar, StyleSheet, Button} from 'react-native';
 import auth from '@react-native-firebase/auth';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {COLORS} from './assets/colors';
+import {ReusableButton} from './components/ReusableButton';
 
-
-logOff = () => {
+export const logOff = () => {
   auth()
-  .signOut()
-  .then(() => console.log('User signed out!'));
-}
+    .signOut()
+    .then(() => console.log('User signed out!'));
+};
 
 GoogleSignin.configure({
-  webClientId: '541770806381-3prnmcl555bfnna1ffrgcl3d30c74g6g.apps.googleusercontent.com',
+  webClientId:
+    '541770806381-3prnmcl555bfnna1ffrgcl3d30c74g6g.apps.googleusercontent.com',
 });
 
 onGoogleButtonPress = async () => {
   // Check if your device supports Google Play
-  await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+  await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
   // Get the users ID token
-  const { idToken } = await GoogleSignin.signIn();
+  const {idToken} = await GoogleSignin.signIn();
 
   // Create a Google credential with the token
   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
   // Sign-in the user with the credential
   return auth().signInWithCredential(googleCredential);
-}
+};
 
 const App = () => {
   // Set an initializing state whilst Firebase connects
@@ -48,40 +50,39 @@ const App = () => {
 
   if (!user) {
     return (
-      <>
-        <Text></Text>
-        <Text></Text>
-        <Text></Text>
-        <Text></Text>
-        <Text></Text>
-        <Text></Text>
-        <Text></Text>
-        <Text></Text>
-        <Text>Login</Text>
-        <Button
-        title="Google Sign-In"
-        onPress={() => this.onGoogleButtonPress().then(() => console.log('Signed in with Google!'))}
-        />
-      </>
+      <View style={style.container}>
+        <Text style={style.font}>GoodAM Login</Text>
+        <ReusableButton
+          title="Google Sign-In"
+          onPress={() =>
+            this.onGoogleButtonPress().then(() =>
+              console.log('Signed in with Google!'),
+            )
+          }></ReusableButton>
+      </View>
     );
   }
 
   return (
     <>
-      <Text></Text>
-      <Text></Text>
-      <Text></Text>
-      <Text></Text>
-      <Text></Text>
-      <Text></Text>
-      <Text></Text>
-      <Text></Text>
-      <Text>Welcome {user.email}</Text>
-      <Button title = "Log off" onPress={this.logOff} />
       <StatusBar />
-      <RootNavigator />
+      <RootNavigator email={user.email} />
     </>
   );
-}
+};
+
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.naplesYellow,
+  },
+  font: {
+    fontSize: 20,
+    color: COLORS.indigoDye,
+  },
+});
 
 export default App;

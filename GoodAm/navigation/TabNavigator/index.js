@@ -5,16 +5,54 @@ import HomeScreen from '../../components/screens/HomeScreen';
 import AlarmScreen from '../../components/screens/AlarmScreen';
 import CharityScreen from '../../components/screens/CharityScreen';
 import ProfileScreen from '../../components/screens/ProfileScreen';
+import {COLORS} from '../../assets/colors';
+import Icon from 'react-native-vector-icons/Ionicons';
+Icon.loadFont().then();
 
 const Tab = createBottomTabNavigator();
 
-const TabNavigator = () => {
+const TabNavigator = props => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={({route, navigation}) => ({
+        headerShown: false,
+        tabBarStyle: {
+          height: 95,
+          paddingHorizontal: 0,
+          paddingTop: 10,
+          backgroundColor: COLORS.indigoDye,
+          position: 'absolute',
+        },
+        tabBarActiveTintColor: COLORS.lemonChiffon,
+        tabBarInactiveTintColor: COLORS.opal,
+        tabBarShowLabel: true,
+        tabBarLabelStyle: {fontSize: 10.5},
+        // tabBarLabel: navigation.isFocused() ? route.name : '',
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName;
+          if (route.name === 'Home') {
+            iconName = 'planet';
+          } else if (route.name === 'Alarms') {
+            iconName = 'alarm';
+          } else if (route.name === 'Charities') {
+            iconName = 'rose';
+          } else if (route.name === 'Profile') {
+            iconName = 'person';
+          }
+          return <Icon name={iconName} size={35} color={color} />;
+        },
+      })}>
+      <Tab.Screen
+        name="Home"
+        children={() => <HomeScreen email={props.email} />} //passes user email to display
+      />
       <Tab.Screen name="Alarms" component={AlarmScreen} />
       <Tab.Screen name="Charities" component={CharityScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen
+        name="Profile"
+        children={() => <ProfileScreen email={props.email} />} //passes user email to display
+      />
     </Tab.Navigator>
   );
 };

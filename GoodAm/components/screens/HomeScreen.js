@@ -1,9 +1,11 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {COLORS} from '../../assets/colors';
 
-const HomeScreen = () => {
+const HomeScreen = props => {
   return (
     <View style={style.container}>
+      <Text style={style.font}>Welcome {props.email}</Text>
       <Text style={style.font}>Home</Text>
     </View>
   );
@@ -12,13 +14,14 @@ const HomeScreen = () => {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: COLORS.naplesYellow,
   },
-  title: {
+  font: {
     fontSize: 20,
-    color: '#fff',
+    color: COLORS.indigoDye,
   },
 });
 
