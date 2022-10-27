@@ -1,13 +1,28 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TextInput} from 'react-native';
 import {StyleSheet} from 'react-native';
 import {COLORS} from '../../assets/colors';
 import {ReusableButton} from '../ReusableButton';
 import {ReusableModal} from '../ReusableModal';
+import {usersCollection} from '../alarm/usersCollection';
+import firestore from '@react-native-firebase/firestore';
 
 const AlarmScreen = () => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
-  const handleModal = () => setIsModalVisible(() => !isModalVisible);
+  const [name, setName] = React.useState('');
+  const handleModal = () => {
+    setIsModalVisible(() => !isModalVisible);
+    setName('');
+  };
+
+  const addName = text => {
+    firestore()
+      .collection('Users')
+      .add({name: text})
+      .then(() => {
+        console.log('User added!');
+      });
+  };
 
   return (
     <View style={style.container}>
@@ -19,14 +34,20 @@ const AlarmScreen = () => {
         <ReusableModal.Container>
           <ReusableModal.Header title="Create Alarm" />
           <ReusableModal.Body>
-            <Text style={{fontSize: 20, color: COLORS.lemonChiffon}}>Time</Text>
+            <TextInput
+              placeholderTextColor={COLORS.lemonChiffon}
+              style={style.input}
+              placeholder="Add Your Name!"
+              onChangeText={value => setName(value)}
+            />
           </ReusableModal.Body>
           <ReusableModal.Footer>
             <ReusableButton
               title="Create"
               color={COLORS.indigoDye}
               backgroundColor={COLORS.naplesYellow}
-              width="50%"></ReusableButton>
+              width="50%"
+              onPress={() => addName(name)}></ReusableButton>
             <ReusableButton
               title="Cancel"
               onPress={handleModal}
@@ -51,6 +72,13 @@ const style = StyleSheet.create({
   font: {
     fontSize: 20,
     color: COLORS.indigoDye,
+  },
+  input: {
+    margin: 15,
+    height: 40,
+    borderColor: COLORS.naplesYellow,
+    borderWidth: 3,
+    color: COLORS.lemonChiffon,
   },
 });
 
