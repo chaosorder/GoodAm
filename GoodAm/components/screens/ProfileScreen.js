@@ -1,3 +1,6 @@
+/*
+Landing screen for the profile tab
+*/
 import React from 'react';
 import {View, Text, Button} from 'react-native';
 import {StyleSheet} from 'react-native';
@@ -6,6 +9,7 @@ import {COLORS} from '../../assets/colors';
 import {ReusableButton} from '../ReusableButton';
 
 const ProfileScreen = props => {
+  //takes the email from user as a prop to display, comes from TabNavigator
   return (
     <View style={style.container}>
       <Text style={style.font}>Welcome {props.email}</Text>

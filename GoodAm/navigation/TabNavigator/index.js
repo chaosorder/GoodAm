@@ -1,3 +1,6 @@
+/*
+Sets up the bottom tab bar with icons, allows for navigation between screens
+*/
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
@@ -7,7 +10,7 @@ import CharityScreen from '../../components/screens/CharityScreen';
 import ProfileScreen from '../../components/screens/ProfileScreen';
 import {COLORS} from '../../assets/colors';
 import Icon from 'react-native-vector-icons/Ionicons';
-Icon.loadFont().then();
+Icon.loadFont().then(); //not perfect, appears to send a warning to app but still has icons appear
 
 const Tab = createBottomTabNavigator();
 
@@ -28,8 +31,8 @@ const TabNavigator = props => {
         tabBarInactiveTintColor: COLORS.opal,
         tabBarShowLabel: true,
         tabBarLabelStyle: {fontSize: 10.5},
-        // tabBarLabel: navigation.isFocused() ? route.name : '',
         tabBarIcon: ({focused, color, size}) => {
+          //assigns icons to each page based on name.
           let iconName;
           if (route.name === 'Home') {
             iconName = 'planet';
@@ -45,13 +48,13 @@ const TabNavigator = props => {
       })}>
       <Tab.Screen
         name="Home"
-        children={() => <HomeScreen email={props.email} />} //passes user email to display
+        children={() => <HomeScreen email={props.email} />} //passes user email as a prop to display
       />
       <Tab.Screen name="Alarms" component={AlarmScreen} />
       <Tab.Screen name="Charities" component={CharityScreen} />
       <Tab.Screen
         name="Profile"
-        children={() => <ProfileScreen email={props.email} />} //passes user email to display
+        children={() => <ProfileScreen email={props.email} />} //passes user email as a prop to display
       />
     </Tab.Navigator>
   );

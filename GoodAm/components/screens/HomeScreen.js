@@ -1,8 +1,12 @@
+/*
+Landing screen for the home tab, default landing page for app after login
+*/
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {COLORS} from '../../assets/colors';
 
 const HomeScreen = props => {
+  //takes the email from user as a prop to display, comes from TabNavigator
   return (
     <View style={style.container}>
       <Text style={style.font}>Welcome {props.email}</Text>

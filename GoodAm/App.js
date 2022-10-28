@@ -6,6 +6,7 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {COLORS} from './assets/colors';
 import {ReusableButton} from './components/ReusableButton';
 
+//begin auth/login firebase code
 export const logOff = () => {
   auth()
     .signOut()
@@ -62,12 +63,14 @@ const App = () => {
       </View>
     );
   }
+  //end auth/login code
 
   return (
     <>
       <StatusBar />
       <RootNavigator email={user.email} />
-    </>
+    </> //StatusBar allows for the wifi and clock texts to be visible in the app
+    // RootNavigator is the base navigation system for the app, we send in the email in order for other pages to use it.
   );
 };
 

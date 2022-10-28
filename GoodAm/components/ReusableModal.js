@@ -1,3 +1,8 @@
+/*
+Customizable modal that allows for us to have a pop-up whenever 
+we'd like for the user to input information, or any other use we'd have for a modal
+It also has different parts to it just like html, (i.e. header, body, footer, etc.)
+*/
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {COLORS} from '../assets/colors';

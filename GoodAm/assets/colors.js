@@ -1,3 +1,7 @@
+/*
+Our colors assigned to a name allowing to be chosen throughout the app in styles.
+*/
+
 export const COLORS = {
   naplesYellow: '#ffdf64',
   chocolateWeb: '#d56f3e',

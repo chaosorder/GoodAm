@@ -8,6 +8,7 @@ const RootNavigator = props => {
     <NavigationContainer>
       <TabNavigator email={props.email} />
     </NavigationContainer>
+    // NavigationContainer houses any navigation systems we may want, we're using TabNavigator only right now.
   );
 };
 

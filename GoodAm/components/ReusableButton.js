@@ -1,3 +1,6 @@
+/*
+Customizable button that allows for us to choose the color, size and onPress capabilities.
+*/
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {COLORS} from '../assets/colors';
