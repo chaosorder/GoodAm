@@ -1,11 +1,19 @@
+/*
+Landing screen for the profile tab
+*/
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Button} from 'react-native';
 import {StyleSheet} from 'react-native';
+import {logOff} from '../../App';
+import {COLORS} from '../../assets/colors';
+import {ReusableButton} from '../ReusableButton';
 
-const ProfileScreen = () => {
+const ProfileScreen = props => {
+  //takes the email from user as a prop to display, comes from TabNavigator
   return (
     <View style={style.container}>
-      <Text style={style.font}>Profile</Text>
+      <Text style={style.font}>Welcome {props.email}</Text>
+      <ReusableButton title="Log off" onPress={logOff}></ReusableButton>
     </View>
   );
 };
@@ -13,13 +21,14 @@ const ProfileScreen = () => {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: COLORS.naplesYellow,
   },
-  title: {
+  font: {
     fontSize: 20,
-    color: '#fff',
+    color: COLORS.indigoDye,
   },
 });
 

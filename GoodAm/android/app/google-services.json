@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "541770806381-c179hej9dti7ml4e6cspbl4hbkdea88p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.goodam",
+            "certificate_hash": "9850038baf4f5e6b7eac8cc3a5778d1a261c4421"
+          }
+        },
+        {
           "client_id": "541770806381-3prnmcl555bfnna1ffrgcl3d30c74g6g.apps.googleusercontent.com",
           "client_type": 3
         }
