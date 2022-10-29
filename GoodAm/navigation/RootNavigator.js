@@ -3,11 +3,12 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import TabNavigator from './TabNavigator';
 
-const RootNavigator = () => {
+const RootNavigator = props => {
   return (
     <NavigationContainer>
-      <TabNavigator />
+      <TabNavigator email={props.email} />
     </NavigationContainer>
+    // NavigationContainer houses any navigation systems we may want, we're using TabNavigator only right now.
   );
 };
 
