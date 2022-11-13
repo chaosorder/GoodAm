@@ -10,16 +10,16 @@ import PushNotification from 'react-native-push-notification';
 
 const createChannels = () => {
   PushNotification.createChannel({
-    channelId: 'test-channel',
-    channelName: 'Test Channel'
+    channelId: 'alarm-channel',
+    channelName: 'Alarm Channel'
   });
 }
 
 const handleNotification = () => {
   PushNotification.localNotification({
-    channelId: 'test-channel',
-    title: 'Test Alarm',
-    message: 'This is a test alarm.'
+    channelId: 'alarm-channel',
+    title: 'Good AM',
+    message: 'It\'s time to wake up!'
   })
 }
 
