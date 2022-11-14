@@ -6,7 +6,7 @@ import TabNavigator from './TabNavigator';
 const RootNavigator = props => {
   return (
     <NavigationContainer>
-      <TabNavigator email={props.email} />
+      <TabNavigator />
     </NavigationContainer>
     // NavigationContainer houses any navigation systems we may want, we're using TabNavigator only right now.
   );

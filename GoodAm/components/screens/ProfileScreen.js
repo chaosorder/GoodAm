@@ -7,12 +7,13 @@ import {StyleSheet} from 'react-native';
 import {logOff} from '../../App';
 import {COLORS} from '../../assets/colors';
 import {ReusableButton} from '../ReusableButton';
+import {firebase} from '@react-native-firebase/firestore';
 
 const ProfileScreen = props => {
-  //takes the email from user as a prop to display, comes from TabNavigator
+  const email = firebase.auth().currentUser.email;
   return (
     <View style={style.container}>
-      <Text style={style.font}>Welcome {props.email}</Text>
+      <Text style={style.font}>Welcome {email}</Text>
       <ReusableButton title="Log off" onPress={logOff}></ReusableButton>
     </View>
   );

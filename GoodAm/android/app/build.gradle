@@ -136,6 +136,7 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
+
     defaultConfig {
         applicationId "com.goodam"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -254,7 +255,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     //noinspection GradleDynamicVersion
-    implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation "com.facebook.react:react-native:0.70.3!!"  // From node_modules
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     implementation "com.google.firebase:firebase-bom:31.0.0"

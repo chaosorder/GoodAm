@@ -6,7 +6,7 @@ import {View, Text} from 'react-native';
 import {StyleSheet} from 'react-native';
 import {COLORS} from '../../assets/colors';
 
-const CharityScreen = () => {
+const CharityScreen = props => {
   return (
     <View style={style.container}>
       <Text style={style.font}>Charity</Text>

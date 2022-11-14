@@ -48,13 +48,13 @@ const TabNavigator = props => {
       })}>
       <Tab.Screen
         name="Home"
-        children={() => <HomeScreen email={props.email} />} //passes user email as a prop to display
+        children={() => <HomeScreen />} //passes user email as a prop to display
       />
-      <Tab.Screen name="Alarms" component={AlarmScreen} />
-      <Tab.Screen name="Charities" component={CharityScreen} />
+      <Tab.Screen name="Alarms" children={() => <AlarmScreen />} />
+      <Tab.Screen name="Charities" children={() => <CharityScreen />} />
       <Tab.Screen
         name="Profile"
-        children={() => <ProfileScreen email={props.email} />} //passes user email as a prop to display
+        children={() => <ProfileScreen />} //passes user email as a prop to display
       />
     </Tab.Navigator>
   );
