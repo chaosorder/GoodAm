@@ -5,6 +5,7 @@ import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {COLORS} from './assets/colors';
 import {ReusableButton} from './components/ReusableButton';
+import messaging from '@react-native-firebase/messaging'
 
 //begin auth/login firebase code
 export const logOff = () => {
@@ -35,6 +36,8 @@ const App = () => {
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
+  const [pushToken, setPushToken] = useState(null)
+  const [isAuthorized, setIsAuthorized] = useState(false)
 
   // Handle user state changes
   function onAuthStateChanged(user) {
@@ -73,6 +76,33 @@ const App = () => {
     // RootNavigator is the base navigation system for the app, we send in the email in order for other pages to use it.
   );
 };
+
+const handlePushToken = useCallback(async () => {
+  const enabled = await messaging().hasPermission()
+  if (enabled) {
+    const fcmToken = await messaging().getToken()
+    if (fcmToken) setPushToken(fcmToken)
+  } else {
+    const authorizaed = await messaging.requestPermission()
+    if (authorized) setAuthorized(true)
+  }
+}, [])
+
+const saveTokenToDatabase = useCallback(async (token) => {
+  const { error } = await setFcmToken(token)
+  if (error) throw Error(error)
+}, [])
+
+const saveDeviceToken = useCallback(async () => {
+  if (isAuthorized) {
+    const currentFcmToken = await firebase.messaging().getToken()
+    if (currentFcmToken !== pushToken) {
+      return saveTokenToDatabase(currentFcmToken)
+    }
+
+    return messaging().onTokenRefresh((token) => saveTokenToDatabase(token))
+  }
+}, [pushToken, isAuthorized])
 
 const style = StyleSheet.create({
   container: {
