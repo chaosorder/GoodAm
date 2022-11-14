@@ -16,10 +16,13 @@ const createChannels = () => {
 }
 
 const handleNotification = () => {
-  PushNotification.localNotification({
+  PushNotification.localNotificationSchedule({
     channelId: 'alarm-channel',
     title: 'Good AM',
-    message: 'It\'s time to wake up!'
+    message: 'It\'s time to wake up!',
+    date: new Date(Date.now() + 10 * 1000),
+    actions: ["I'm up!", "Just 15 more minutes..."],
+    invokeApp: false
   })
 }
 
