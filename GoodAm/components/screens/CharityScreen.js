@@ -10,11 +10,13 @@ import {ReusableButton} from '../ReusableButton';
 
 const createChannel = async () => {
   await notifee.createChannel({
-    id: 'nosh2',
+    id: 'nosh4',
     name: 'Alarm Channel',
     vibration: true,
     sound: 'alarm',
-    category: AndroidCategory.CALL,
+    vibration: true,
+    vibrationPattern: [180, 121, 134, 300, 289, 123, 134, 300, 621, 121, 134, 300, 289, 123, 134, 300],
+    category: AndroidCategory.ALARM,
     importance: AndroidImportance.HIGH,
   });
 };
@@ -24,23 +26,26 @@ const handleNotification = async () => {
   // Create a time-based trigger
   const trigger = {
     type: TriggerType.TIMESTAMP,
-    timestamp: new Date(Date.now() + 3 * 1000).getTime(),
+    timestamp: new Date(Date.now() + 10 * 1000).getTime(),
   };
 
   await notifee.createTriggerNotification({
     title: 'It\'s time to wake up!',
     android: {
-      channelId: 'nosh2',
+      channelId: 'nosh4',
       ongoing: true,
-      category: AndroidCategory.CALL,
+      vibrationPattern: [180, 121, 134, 300, 289, 123, 134, 300, 621, 121, 134, 300, 289, 123, 134, 300],
+      category: AndroidCategory.ALARM,
       importance: AndroidImportance.HIGH,
-      // fullScreenAction: {
+      loopSound: true,
+      // pressAction: {
       //   id: 'default',
-      //   mainComponent: 'custom-component',
-
-      //   id: 'full-screen',
-      //   launchActivity: 'com.awesome.app.FullScreenActivity',
+      //    fullscreen: true,
       // },
+      fullScreenAction: {
+        id: 'default',
+        mainComponent: 'custom-component',
+      },
       actions: [
         {
           title: 'I\'m awake!',
