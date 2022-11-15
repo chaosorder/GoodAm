@@ -5,19 +5,22 @@ import {React, useEffect} from 'react';
 import {View, Text} from 'react-native';
 import {StyleSheet} from 'react-native';
 import {COLORS} from '../../assets/colors';
-import notifee, { TimestampTrigger, TriggerType, AndroidImportance, AndroidCategory } from '@notifee/react-native';
+import notifee, { TriggerType, AndroidImportance, AndroidCategory, EventType} from '@notifee/react-native';
 import {ReusableButton} from '../ReusableButton';
 
 const createChannel = async () => {
   await notifee.createChannel({
-    id: 'alarm',
+    id: 'nosh2',
     name: 'Alarm Channel',
-    //vibration: true,
+    vibration: true,
     sound: 'alarm',
+    category: AndroidCategory.CALL,
+    importance: AndroidImportance.HIGH,
   });
 };
 
 const handleNotification = async () => {
+  createChannel();
   // Create a time-based trigger
   const trigger = {
     type: TriggerType.TIMESTAMP,
@@ -26,9 +29,9 @@ const handleNotification = async () => {
 
   await notifee.createTriggerNotification({
     title: 'It\'s time to wake up!',
-    //body: 'Main body content of the notification',
     android: {
-      channelId: 'alarm',
+      channelId: 'nosh2',
+      ongoing: true,
       category: AndroidCategory.CALL,
       importance: AndroidImportance.HIGH,
       // fullScreenAction: {
@@ -41,7 +44,6 @@ const handleNotification = async () => {
       actions: [
         {
           title: 'I\'m awake!',
-          icon: 'https://my-cdn.com/icons/snooze.png',
           pressAction: {
             id: 'awake',
           },
@@ -49,7 +51,8 @@ const handleNotification = async () => {
         {
           title: 'Just 15 more minutes...',
           pressAction: {
-            id: 'snooze'
+            id: 'snooze',
+            launchActivity: 'default'
           },
         },
       ],  
@@ -59,9 +62,31 @@ const handleNotification = async () => {
   );
 };
 
+notifee.onBackgroundEvent(async ({ type, detail }) => {
+  if (type === EventType.ACTION_PRESS && detail.pressAction.id == 'snooze') {
+    console.log("BACKGROUND: You a bitch for that.");
+    await notifee.cancelNotification(detail.notification.id);
+  }
+  else if (type == EventType.ACTION_PRESS && detail.pressAction.id == 'awake') {
+    console.log("BACKGROUND: Rise and shine, cupcake!");
+    await notifee.cancelNotification(detail.notification.id);
+  }
+});
+
+notifee.onForegroundEvent(({ type, detail }) => {
+  if (type === EventType.ACTION_PRESS && detail.pressAction.id == 'snooze') {
+    console.log("FOREGROUND: You a bitch for that.");
+    notifee.cancelNotification(detail.notification.id);
+  }
+  else if (type == EventType.ACTION_PRESS && detail.pressAction.id == 'awake'){
+    console.log("FOREGROUND: Rise and shine, cupcake!");
+    notifee.cancelNotification(detail.notification.id);
+  }
+});
+
 const CharityScreen = () => {
   useEffect(() => {
-    createChannel();
+    //createChannel();
   }, []);
 
   return (
