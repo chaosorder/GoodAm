@@ -5,6 +5,7 @@ import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {COLORS} from './assets/colors';
 import {ReusableButton} from './components/ReusableButton';
+import {createNotificationChannel} from './components/AlarmNotification.js';
 
 //begin auth/login firebase code
 export const logOff = () => {
@@ -31,6 +32,8 @@ onGoogleButtonPress = async () => {
   return auth().signInWithCredential(googleCredential);
 };
 
+createNotificationChannel();
+
 const App = () => {
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
@@ -44,6 +47,7 @@ const App = () => {
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    createNotificationChannel();
     return subscriber; // unsubscribe on unmount
   }, []);
 
