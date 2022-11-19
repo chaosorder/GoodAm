@@ -2,8 +2,15 @@
 Landing screen for the alarms tab, will house alarms 
 to be toggled and the ability to create alarms.
 */
-import React, {useState} from 'react';
-import {View, Text, TextInput, Platform} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  Platform,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import {StyleSheet} from 'react-native';
 import {COLORS} from '../../assets/colors'; //our colors for the project, just call this everytime
 import {ReusableButton} from '../ReusableButton';
@@ -13,6 +20,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 import {firebase} from '@react-native-firebase/firestore';
 import uuid from 'react-native-uuid';
+import {Alarm} from '../Alarm';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const AlarmScreen = () => {
   const [isModalVisible, setIsModalVisible] = useState(false); //state that allows the modal to pop up and disappear upon button presses
@@ -49,6 +58,22 @@ const AlarmScreen = () => {
   };
 
   const uid = firebase.auth().currentUser.uid;
+  initAlarms = {};
+  firestore()
+    .collection('Users')
+    .doc(uid)
+    .collection('Alarms')
+    .orderBy('time', 'desc')
+    .get()
+    .then(snapshot => {
+      snapshot.forEach(alarm => {
+        initAlarms[alarm.id] = {
+          time: alarm.data()['time'],
+          active: alarm.data()['turnedOn'],
+        };
+      });
+    });
+  const [alarms, setAlarms] = useState(initAlarms);
 
   const addAlarmData = (time, date, name, days) => {
     // have this function add alarm data into database
@@ -74,6 +99,12 @@ const AlarmScreen = () => {
       .then(() => {
         console.log('Alarm added');
       });
+    const timePass = time.toLocaleTimeString(
+      [],
+      {hour: '2-digit', minute: '2-digit'},
+      'en-US',
+    );
+    createAlarm(alarmID, timePass);
     handleModal();
   };
 
@@ -121,156 +152,221 @@ const AlarmScreen = () => {
     }
   };
 
+  //begin ojas alarm code
+
+  const createAlarm = (key, time) => {
+    console.log(key);
+    newAlarms = {...alarms};
+    newAlarms[key] = {time: time, active: true};
+    setAlarms(newAlarms);
+  };
+
+  const toggleAlarm = key => {
+    console.log(key);
+    newAlarms = {...alarms};
+    newAlarms[key] = {time: alarms[key].time, active: !alarms[key].active};
+    setAlarms(newAlarms);
+    firestore()
+      .collection('Users')
+      .doc(uid)
+      .collection('Alarms')
+      .doc(key)
+      .update({turnedOn: !alarms[key].active});
+  };
+
+  const buildAlarms = () => {
+    console.log(alarms);
+    let alarmComponents = [];
+    for (let key in alarms) {
+      alarmComponents.push(
+        <Alarm
+          key={key}
+          toggle={toggleAlarm}
+          alarmId={key}
+          data={alarms[key]}
+        />,
+      );
+    }
+    return alarmComponents;
+  };
+
   return (
-    <View style={style.container}>
-      <Text style={style.font}>Your Alarms</Text>
-      <ReusableButton //create new alarm button, customizable
-        title="Create new alarm"
-        onPress={handleModal}></ReusableButton>
-      <ReusableModal isVisible={isModalVisible}>
-        <ReusableModal.Container>
-          <ReusableModal.Header title="Create Alarm" />
-          <ReusableModal.Body>
-            <TextInput //allows for user text input
-              placeholderTextColor={COLORS.lemonChiffon}
-              style={style.input}
-              placeholder="Alarm Name"
-              onChangeText={value => setName(value)}
-            />
-            {Platform.OS == 'ios' && (
-              <View style={style.alarmButtons}>
-                <Text style={style.popupText}>Start Date</Text>
-                <DateTimePicker
-                  value={date}
-                  mode="date"
-                  textColor={COLORS.naplesYellow}
-                  minimumDate={new Date(Date.now())}
-                  onChange={onChangeDate}
-                />
-              </View>
-            )}
+    <SafeAreaView style={style.container}>
+      <View
+        style={{
+          justifyContent: 'space-between',
+          flexDirection: 'row',
+          alignItems: 'center',
+          alignContent: 'center',
+          paddingLeft: 22,
+        }}>
+        <Text style={style.font}>Your Alarms</Text>
+        <ReusableButton //create new alarm button, customizable
+          title="+"
+          width="15%"
+          fontSize={30}
+          color={COLORS.indigoDye}
+          backgroundColor={COLORS.naplesYellow}
+          onPress={handleModal}></ReusableButton>
+      </View>
+      <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        {buildAlarms()}
+        <ReusableModal isVisible={isModalVisible}>
+          <ReusableModal.Container>
+            <ReusableModal.Header title="Create Alarm" />
+            <ReusableModal.Body>
+              <TextInput //allows for user text input
+                placeholderTextColor={COLORS.lemonChiffon}
+                style={style.input}
+                placeholder="Alarm Name"
+                onChangeText={value => setName(value)}
+              />
+              {Platform.OS == 'ios' && (
+                <View style={style.alarmButtons}>
+                  <Text style={style.popupText}>Start Date</Text>
+                  <DateTimePicker
+                    value={date}
+                    mode="date"
+                    textColor={COLORS.naplesYellow}
+                    minimumDate={new Date(Date.now())}
+                    onChange={onChangeDate}
+                  />
+                </View>
+              )}
 
-            {Platform.OS == 'ios' && (
-              <View style={style.alarmButtons}>
-                <Text style={style.popupText}>Alarm Time</Text>
-                <DateTimePicker
-                  value={time}
-                  mode="time"
-                  textColor={COLORS.naplesYellow}
-                  onChange={onChangeTime}
-                />
-              </View>
-            )}
+              {Platform.OS == 'ios' && (
+                <View style={style.alarmButtons}>
+                  <Text style={style.popupText}>Alarm Time</Text>
+                  <DateTimePicker
+                    value={time}
+                    mode="time"
+                    textColor={COLORS.naplesYellow}
+                    onChange={onChangeTime}
+                  />
+                </View>
+              )}
 
-            {Platform.OS == 'android' && (
-              <View style={style.alarmButtons}>
-                <Text style={style.popupText}>Start Date</Text>
+              {Platform.OS == 'android' && (
+                <View style={style.alarmButtons}>
+                  <Text style={style.popupText}>Start Date</Text>
+                  <ReusableButton
+                    style={style.popupText}
+                    onPress={showDatePicker}
+                    title={date.toDateString()}
+                    onChange={onChangeDate}
+                  />
+                </View>
+              )}
+
+              {Platform.OS == 'android' && (
+                <View style={style.alarmButtons}>
+                  <Text style={style.popupText}>Alarm Time</Text>
+                  <ReusableButton
+                    style={style.popupText}
+                    onPress={showTimePicker}
+                    title={date.toLocaleTimeString()}
+                    onChange={onChangeTime}
+                  />
+                </View>
+              )}
+
+              <View style={style.buttonGroup}>
+                <ReusableButton //small edit, changed so that sunday is day zero, so we can use a built in date method
+                  onPress={() => buttonHandle(0)}
+                  backgroundColor={btnColor[0]}
+                  color={COLORS.indigoDye}
+                  title="Su"
+                  width="12%"
+                />
                 <ReusableButton
-                  style={style.popupText}
-                  onPress={showDatePicker}
-                  title={date.toDateString()}
-                  onChange={onChangeDate}
+                  onPress={() => buttonHandle(1)}
+                  backgroundColor={btnColor[1]}
+                  color={COLORS.indigoDye}
+                  title="M"
+                  width="12%"
                 />
-              </View>
-            )}
-
-            {Platform.OS == 'android' && (
-              <View style={style.alarmButtons}>
-                <Text style={style.popupText}>Alarm Time</Text>
                 <ReusableButton
-                  style={style.popupText}
-                  onPress={showTimePicker}
-                  title={date.toLocaleTimeString()}
-                  onChange={onChangeTime}
+                  onPress={() => buttonHandle(2)}
+                  backgroundColor={btnColor[2]}
+                  color={COLORS.indigoDye}
+                  title="Tu"
+                  width="12%"
+                />
+                <ReusableButton
+                  onPress={() => buttonHandle(3)}
+                  backgroundColor={btnColor[3]}
+                  color={COLORS.indigoDye}
+                  title="W"
+                  width="12%"
+                />
+                <ReusableButton
+                  onPress={() => buttonHandle(4)}
+                  backgroundColor={btnColor[4]}
+                  color={COLORS.indigoDye}
+                  title="Th"
+                  width="12%"
+                />
+                <ReusableButton
+                  onPress={() => buttonHandle(5)}
+                  backgroundColor={btnColor[5]}
+                  color={COLORS.indigoDye}
+                  title="F"
+                  width="12%"
+                />
+                <ReusableButton
+                  onPress={() => buttonHandle(6)}
+                  backgroundColor={btnColor[6]}
+                  color={COLORS.indigoDye}
+                  title="Sa"
+                  width="12%"
                 />
               </View>
-            )}
-
-            <View style={style.buttonGroup}>
-              <ReusableButton //small edit, changed so that sunday is day zero, so we can use a built in date method
-                onPress={() => buttonHandle(0)}
-                backgroundColor={btnColor[0]}
-                color={COLORS.indigoDye}
-                title="Su"
-                width="12%"
-              />
+            </ReusableModal.Body>
+            <ReusableModal.Footer>
               <ReusableButton
-                onPress={() => buttonHandle(1)}
-                backgroundColor={btnColor[1]}
+                title="Create"
                 color={COLORS.indigoDye}
-                title="M"
-                width="12%"
-              />
+                backgroundColor={COLORS.naplesYellow}
+                width="50%"
+                onPress={() =>
+                  addAlarmData(time, date, name, days)
+                }></ReusableButton>
               <ReusableButton
-                onPress={() => buttonHandle(2)}
-                backgroundColor={btnColor[2]}
+                title="Cancel"
+                onPress={handleModal}
                 color={COLORS.indigoDye}
-                title="Tu"
-                width="12%"
-              />
-              <ReusableButton
-                onPress={() => buttonHandle(3)}
-                backgroundColor={btnColor[3]}
-                color={COLORS.indigoDye}
-                title="W"
-                width="12%"
-              />
-              <ReusableButton
-                onPress={() => buttonHandle(4)}
-                backgroundColor={btnColor[4]}
-                color={COLORS.indigoDye}
-                title="Th"
-                width="12%"
-              />
-              <ReusableButton
-                onPress={() => buttonHandle(5)}
-                backgroundColor={btnColor[5]}
-                color={COLORS.indigoDye}
-                title="F"
-                width="12%"
-              />
-              <ReusableButton
-                onPress={() => buttonHandle(6)}
-                backgroundColor={btnColor[6]}
-                color={COLORS.indigoDye}
-                title="Sa"
-                width="12%"
-              />
-            </View>
-          </ReusableModal.Body>
-          <ReusableModal.Footer>
-            <ReusableButton
-              title="Create"
-              color={COLORS.indigoDye}
-              backgroundColor={COLORS.naplesYellow}
-              width="50%"
-              onPress={() =>
-                addAlarmData(time, date, name, days)
-              }></ReusableButton>
-            <ReusableButton
-              title="Cancel"
-              onPress={handleModal}
-              color={COLORS.indigoDye}
-              backgroundColor={COLORS.naplesYellow}
-              width="50%"></ReusableButton>
-          </ReusableModal.Footer>
-        </ReusableModal.Container>
-      </ReusableModal>
-    </View>
+                backgroundColor={COLORS.naplesYellow}
+                width="50%"></ReusableButton>
+            </ReusableModal.Footer>
+          </ReusableModal.Container>
+        </ReusableModal>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: COLORS.naplesYellow,
+    paddingBottom: 60,
   },
   font: {
-    fontSize: 20,
+    paddingTop: 13,
+    fontSize: 25,
     color: COLORS.indigoDye,
+  },
+  noAlarm: {
+    fontSize: 20,
+    flex: 1,
+    color: COLORS.indigoDye,
+    textAlign: 'center',
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
   },
   input: {
     margin: 15,
@@ -301,6 +397,11 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     color: COLORS.indigoDye,
+  },
+  buttonText: {
+    fontWeight: '500',
+    fontSize: 16,
+    color: COLORS.lemonChiffon,
   },
 });
 
