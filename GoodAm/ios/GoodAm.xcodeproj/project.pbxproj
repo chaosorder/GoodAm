@@ -11,9 +11,9 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		74D9AADB8F60A2E42514DA5A /* libPods-GoodAm-GoodAmTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D36402466BE60613BFA026B /* libPods-GoodAm-GoodAmTests.a */; };
+		270EDB6067A3882533D98E5A /* libPods-GoodAm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 496638495DD39D65A099E043 /* libPods-GoodAm.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		A99E58D15EA21D440290D349 /* libPods-GoodAm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB27E6D449192D20E884663 /* libPods-GoodAm.a */; };
+		C0ABA80FE079B8630F63D43E /* libPods-GoodAm-GoodAmTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE1DDF9851E25C0F27450C48 /* libPods-GoodAm-GoodAmTests.a */; };
 		E039413728FB687600EEBD16 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E039413628FB687500EEBD16 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -31,7 +31,6 @@
 		00E356EE1AD99517003FC87E /* GoodAmTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoodAmTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* GoodAmTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodAmTests.m; sourceTree = "<group>"; };
-		0BB27E6D449192D20E884663 /* libPods-GoodAm.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoodAm.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* GoodAm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodAm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = GoodAm/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = GoodAm/AppDelegate.mm; sourceTree = "<group>"; };
@@ -39,11 +38,14 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = GoodAm/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = GoodAm/main.m; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-GoodAm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodAm.debug.xcconfig"; path = "Target Support Files/Pods-GoodAm/Pods-GoodAm.debug.xcconfig"; sourceTree = "<group>"; };
+		496638495DD39D65A099E043 /* libPods-GoodAm.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoodAm.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		49C815C2D05EBA0C692C6CBD /* Pods-GoodAmTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodAmTests.release.xcconfig"; path = "Target Support Files/Pods-GoodAmTests/Pods-GoodAmTests.release.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-GoodAm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodAm.release.xcconfig"; path = "Target Support Files/Pods-GoodAm/Pods-GoodAm.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-GoodAm-GoodAmTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodAm-GoodAmTests.debug.xcconfig"; path = "Target Support Files/Pods-GoodAm-GoodAmTests/Pods-GoodAm-GoodAmTests.debug.xcconfig"; sourceTree = "<group>"; };
-		6D36402466BE60613BFA026B /* libPods-GoodAm-GoodAmTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoodAm-GoodAmTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		606888AD34A81BF4AB08ED86 /* Pods-GoodAmTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodAmTests.debug.xcconfig"; path = "Target Support Files/Pods-GoodAmTests/Pods-GoodAmTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = GoodAm/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-GoodAm-GoodAmTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodAm-GoodAmTests.release.xcconfig"; path = "Target Support Files/Pods-GoodAm-GoodAmTests/Pods-GoodAm-GoodAmTests.release.xcconfig"; sourceTree = "<group>"; };
+		BE1DDF9851E25C0F27450C48 /* libPods-GoodAm-GoodAmTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoodAm-GoodAmTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E039413628FB687500EEBD16 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -53,7 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74D9AADB8F60A2E42514DA5A /* libPods-GoodAm-GoodAmTests.a in Frameworks */,
+				C0ABA80FE079B8630F63D43E /* libPods-GoodAm-GoodAmTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A99E58D15EA21D440290D349 /* libPods-GoodAm.a in Frameworks */,
+				270EDB6067A3882533D98E5A /* libPods-GoodAm.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,8 +105,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				0BB27E6D449192D20E884663 /* libPods-GoodAm.a */,
-				6D36402466BE60613BFA026B /* libPods-GoodAm-GoodAmTests.a */,
+				496638495DD39D65A099E043 /* libPods-GoodAm.a */,
+				BE1DDF9851E25C0F27450C48 /* libPods-GoodAm-GoodAmTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -147,6 +149,8 @@
 				5709B34CF0A7D63546082F79 /* Pods-GoodAm.release.xcconfig */,
 				5B7EB9410499542E8C5724F5 /* Pods-GoodAm-GoodAmTests.debug.xcconfig */,
 				89C6BE57DB24E9ADA2F236DE /* Pods-GoodAm-GoodAmTests.release.xcconfig */,
+				606888AD34A81BF4AB08ED86 /* Pods-GoodAmTests.debug.xcconfig */,
+				49C815C2D05EBA0C692C6CBD /* Pods-GoodAmTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -162,8 +166,8 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
-				CDD27D15F854C7081FB6EF72 /* [CP] Copy Pods Resources */,
+				384376CD87A735008D84245A /* [CP] Embed Pods Frameworks */,
+				07E0F674F252585731457D94 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -185,9 +189,9 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				7AB8375A449E403014F0A458 /* [CP-User] [RNFB] Core Configuration */,
-				A8857AB3A7B7FB50F5785380 /* [CP] Copy Pods Resources */,
+				01AAC39C3BC284DA994B000A /* [CP] Embed Pods Frameworks */,
+				39554D50DD3E0B7D0A7F6575 /* [CP] Copy Pods Resources */,
+				52EF9AE382E527B8AA2E81E3 /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
@@ -271,7 +275,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
+		01AAC39C3BC284DA994B000A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -288,7 +292,58 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoodAm/Pods-GoodAm-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7AB8375A449E403014F0A458 /* [CP-User] [RNFB] Core Configuration */ = {
+		07E0F674F252585731457D94 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GoodAm-GoodAmTests/Pods-GoodAm-GoodAmTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GoodAm-GoodAmTests/Pods-GoodAm-GoodAmTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoodAm-GoodAmTests/Pods-GoodAm-GoodAmTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		384376CD87A735008D84245A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GoodAm-GoodAmTests/Pods-GoodAm-GoodAmTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GoodAm-GoodAmTests/Pods-GoodAm-GoodAmTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoodAm-GoodAmTests/Pods-GoodAm-GoodAmTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		39554D50DD3E0B7D0A7F6575 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GoodAm/Pods-GoodAm-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GoodAm/Pods-GoodAm-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoodAm/Pods-GoodAm-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		52EF9AE382E527B8AA2E81E3 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -323,23 +378,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A8857AB3A7B7FB50F5785380 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GoodAm/Pods-GoodAm-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GoodAm/Pods-GoodAm-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoodAm/Pods-GoodAm-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -360,40 +398,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GoodAm-GoodAmTests/Pods-GoodAm-GoodAmTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GoodAm-GoodAmTests/Pods-GoodAm-GoodAmTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoodAm-GoodAmTests/Pods-GoodAm-GoodAmTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CDD27D15F854C7081FB6EF72 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GoodAm-GoodAmTests/Pods-GoodAm-GoodAmTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GoodAm-GoodAmTests/Pods-GoodAm-GoodAmTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoodAm-GoodAmTests/Pods-GoodAm-GoodAmTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
