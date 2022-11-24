@@ -10,11 +10,30 @@ import CharityScreen from '../../components/screens/CharityScreen';
 import ProfileScreen from '../../components/screens/ProfileScreen';
 import {COLORS} from '../../assets/colors';
 import Icon from 'react-native-vector-icons/Ionicons';
+import firestore from '@react-native-firebase/firestore';
+import {firebase} from '@react-native-firebase/firestore';
+import uuid from 'react-native-uuid';
 Icon.loadFont().then(); //not perfect, appears to send a warning to app but still has icons appear
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = props => {
+  const uid = firebase.auth().currentUser.uid;
+  initAlarms = {};
+  firestore()
+    .collection('Users')
+    .doc(uid)
+    .collection('Alarms')
+    .orderBy('time', 'desc')
+    .get()
+    .then(snapshot => {
+      snapshot.forEach(alarm => {
+        initAlarms[alarm.id] = {
+          time: alarm.data()['time'],
+          active: alarm.data()['turnedOn'],
+        };
+      });
+    });
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -46,16 +65,13 @@ const TabNavigator = props => {
           return <Icon name={iconName} size={35} color={color} />;
         },
       })}>
+      <Tab.Screen name="Home" children={() => <HomeScreen />} />
       <Tab.Screen
-        name="Home"
-        children={() => <HomeScreen />} //passes user email as a prop to display
+        name="Alarms"
+        children={() => <AlarmScreen alarmsArray={initAlarms} />}
       />
-      <Tab.Screen name="Alarms" children={() => <AlarmScreen />} />
       <Tab.Screen name="Charities" children={() => <CharityScreen />} />
-      <Tab.Screen
-        name="Profile"
-        children={() => <ProfileScreen />} //passes user email as a prop to display
-      />
+      <Tab.Screen name="Profile" children={() => <ProfileScreen />} />
     </Tab.Navigator>
   );
 };

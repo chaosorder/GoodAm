@@ -23,7 +23,7 @@ import uuid from 'react-native-uuid';
 import {Alarm} from '../Alarm';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-const AlarmScreen = () => {
+const AlarmScreen = props => {
   const [isModalVisible, setIsModalVisible] = useState(false); //state that allows the modal to pop up and disappear upon button presses
   const [name, setName] = useState('');
   const [days, changeDays] = useState({
@@ -56,24 +56,8 @@ const AlarmScreen = () => {
       btnColor[index] = COLORS.naplesYellow;
     }
   };
-
   const uid = firebase.auth().currentUser.uid;
-  initAlarms = {};
-  firestore()
-    .collection('Users')
-    .doc(uid)
-    .collection('Alarms')
-    .orderBy('time', 'desc')
-    .get()
-    .then(snapshot => {
-      snapshot.forEach(alarm => {
-        initAlarms[alarm.id] = {
-          time: alarm.data()['time'],
-          active: alarm.data()['turnedOn'],
-        };
-      });
-    });
-  const [alarms, setAlarms] = useState(initAlarms);
+  const [alarms, setAlarms] = useState({});
 
   const addAlarmData = (time, date, name, days) => {
     // have this function add alarm data into database
@@ -175,19 +159,33 @@ const AlarmScreen = () => {
   };
 
   const buildAlarms = () => {
-    console.log(alarms);
     let alarmComponents = [];
-    for (let key in alarms) {
-      alarmComponents.push(
-        <Alarm
-          key={key}
-          toggle={toggleAlarm}
-          alarmId={key}
-          data={alarms[key]}
-        />,
-      );
+    if (Object.keys(alarms).length == 0) {
+      setAlarms(props.alarmsArray);
+      for (let key in props.alarmsArray) {
+        alarmComponents.push(
+          <Alarm
+            key={key}
+            toggle={toggleAlarm}
+            alarmId={key}
+            data={props.alarmsArray[key]}
+          />,
+        );
+      }
+      return alarmComponents;
+    } else {
+      for (let key in alarms) {
+        alarmComponents.push(
+          <Alarm
+            key={key}
+            toggle={toggleAlarm}
+            alarmId={key}
+            data={alarms[key]}
+          />,
+        );
+      }
+      return alarmComponents;
     }
-    return alarmComponents;
   };
 
   return (
