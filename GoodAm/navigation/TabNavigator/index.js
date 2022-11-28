@@ -11,6 +11,7 @@ import ProfileScreen from '../../components/screens/ProfileScreen';
 import {COLORS} from '../../assets/colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 Icon.loadFont().then(); //not perfect, appears to send a warning to app but still has icons appear
+import SnoozeScreen from '../../components/screens/SnoozeScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -56,6 +57,7 @@ const TabNavigator = props => {
         name="Profile"
         children={() => <ProfileScreen email={props.email} />} //passes user email as a prop to display
       />
+      <Tab.Screen name='test' component={SnoozeScreen} />
     </Tab.Navigator>
   );
 };

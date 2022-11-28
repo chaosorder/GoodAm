@@ -5,7 +5,7 @@ import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {COLORS} from './assets/colors';
 import {ReusableButton} from './components/ReusableButton';
-import {createNotificationChannel} from './components/AlarmNotification.js';
+import {createNotificationChannel, handleBackgroundEvent, handleForegroundEvent } from './components/AlarmNotification.js';
 
 //begin auth/login firebase code
 export const logOff = () => {
@@ -33,6 +33,8 @@ onGoogleButtonPress = async () => {
 };
 
 createNotificationChannel();
+handleBackgroundEvent();
+handleForegroundEvent();
 
 const App = () => {
   // Set an initializing state whilst Firebase connects
