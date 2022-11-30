@@ -6,13 +6,13 @@ import {View, Text} from 'react-native';
 import {StyleSheet} from 'react-native';
 import {COLORS} from '../../assets/colors';
 import {ReusableButton} from '../ReusableButton';
-import {handleNotification} from '../AlarmNotification.js';
+import {scheduleNotification} from '../AlarmNotification.js';
 
 const CharityScreen = () => {
   return (
     <View style={style.container}>
     {/* <Text style={style.font}>Charity</Text> */}
-      <ReusableButton title="click me!" onPress={handleNotification} />
+      <ReusableButton title="click me!" onPress={() => scheduleNotification(Date.now() + 300 * 10)} />
     </View>
   );
 };

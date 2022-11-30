@@ -1,16 +1,22 @@
-import {AppRegistry} from 'react-native';
+import {AppRegistry, Linking} from 'react-native';
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {COLORS} from '../../assets/colors';
 import {ReusableButton} from '../ReusableButton';
-import {removeCurrentNotification} from '../AlarmNotification';
+import {cancelCurrentNotification} from '../AlarmNotification';
+
+const snoozeClicked = () => {
+  removeCurrentNotification();
+  Linking.openURL('https://www.every.org/givedirectly#/donate/card');
+};
 
 const SnoozeScreen = props => {
   return (
     <View style={style.container}>
       <Text style={style.font}>Time to wakeup!</Text>
-      <ReusableButton  title={'I\'m awake!'} onPress={removeCurrentNotification} />
-      <ReusableButton title={'Just 15 more minutes...'} />
+      <ReusableButton  title={'I\'m awake!'} onPress={cancelCurrentNotification} />
+      <ReusableButton title={'Just 15 more minutes...'} 
+        onPress={snoozeClicked} />
     </View>
   );
 };
