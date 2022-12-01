@@ -17,8 +17,11 @@ import uuid from 'react-native-uuid';
 const AlarmScreen = () => {
   const [isModalVisible, setIsModalVisible] = useState(false); //state that allows the modal to pop up and disappear upon button presses
   const [name, setName] = useState('');
+  
+  //days list represents what days the user has selected that this alarm go off on
+  // 0 element starts with Sunday, 6 being Saturday
   const [days, changeDays] = useState({
-    0: 0, //cr: descriptive names of week
+    0: 0, 
     1: 0,
     2: 0,
     3: 0,
@@ -26,6 +29,7 @@ const AlarmScreen = () => {
     5: 0,
     6: 0,
   });
+
   const [btnColor, changeBtnColor] = useState({
     0: COLORS.naplesYellow,
     1: COLORS.naplesYellow,
@@ -48,6 +52,7 @@ const AlarmScreen = () => {
     }
   };
 
+  //get the users ID from database
   const uid = firebase.auth().currentUser.uid;
 
   const addAlarmData = (time, date, name, days) => {
@@ -86,19 +91,25 @@ const AlarmScreen = () => {
     changeBtnColor({...btnColor, [toChangeDay]: col});
   };
 
+  //start date of alarm
   const [date, setDate] = useState(new Date());
+
+  //time of alarm
   const [time, setTime] = useState(new Date(Date.now()));
 
+  //when the user changes the date, change our variable for date to reflect the change
   const onChangeDate = (event, selectedDate) => {
     const currentDate = selectedDate;
     setDate(currentDate);
   };
 
+  //when the user changes the time, change our variable for time to reflect the change
   const onChangeTime = (event, selectedTime) => {
     const currentTime = selectedTime;
     setTime(currentTime);
   };
 
+  //if the user wants to choose a date/time on android, trigger the android date picker to show up
   const showMode = currentMode => {
     DateTimePickerAndroid.open({
       value: date,
@@ -108,8 +119,7 @@ const AlarmScreen = () => {
     });
   };
 
-  const showDatePicker = () => {
-    //cr: possible logic change
+  const showDatePickerAndroid = () => {
     if (Platform.OS == 'android') {
       showMode('date');
     }
