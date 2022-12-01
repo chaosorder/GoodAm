@@ -9,6 +9,8 @@ import {ReusableButton} from '../ReusableButton';
 import {ReusableModal} from '../ReusableModal';
 import firestore from '@react-native-firebase/firestore';
 import { Linking } from 'react-native';
+import {firebase} from '@react-native-firebase/firestore';
+import uuid from 'react-native-uuid';
 
 const CharityScreen = props => {
 
@@ -19,7 +21,7 @@ const CharityScreen = props => {
   const [searchImgResult, setSearchImgResult] = useState([]);
 
   //ein of favorite charity, use this as default charity to donate to
-  const [favoriteCharity, setFavoriteCharity] = useState([]);
+  const [favoriteCharity, setFavoriteCharity] = useState('');
 
   searchForCharity = () => {
     if(searchInput != finalSearchInput){
@@ -28,7 +30,6 @@ const CharityScreen = props => {
       }));
     }
     setSearchInput(finalSearchInput);
-    console.log(finalSearchInput);
 
     fetch("https://partners.every.org/v0.2/search/" + finalSearchInput + "?apiKey=4934bc69ecd7c295569bd7ee40473385&take=15").then((response) => response.json()).then((json) => printCharityinfo(json));
     //setSearchResult(fetchRequest[0]["ein"]);
@@ -49,12 +50,31 @@ const CharityScreen = props => {
       clearAllStars();
       starIcon[i] = 1;
       updateStarIcon(starIcon);
+      setFavoriteCharity(searchImgResult[i].key);
+      addCharityData(searchImgResult[i].key);
     }
     else if(starIcon[i] == 1){
       clearAllStars();
+      setFavoriteCharity('');
+      addCharityData('');
     }
     searchForCharity();
   }
+
+    //get the users ID from database
+    const userID = firebase.auth().currentUser.uid;
+
+    const addCharityData = (ein) => {
+      // have this function add alarm data into database
+      const charityID = uuid.v4();
+      firestore()
+        .collection('Users')
+        .doc(userID)
+        .update({FavoriteCharityEIN: ein})
+        .then(() => {
+          console.log('Charity Added to DB');
+        });
+    };
 
   printCharityinfo = (json) => {
     let np = json.nonprofits;
@@ -63,7 +83,7 @@ const CharityScreen = props => {
     const nonprofit_info = [];
 
     for (let i = 0; i < np.length; i++){
-      nonprofit_info.push(<Text key = {i}><Text style = {{fontSize: 15, top:30, bottom:30, color:"blue", fontWeight: "bold", textDecorationLine:"underline"}} onPress={() => Linking.openURL(np[i].profileUrl)}>
+      nonprofit_info.push(<Text key = {np[i].ein}><Text style = {{fontSize: 15, top:30, bottom:30, color:"blue", fontWeight: "bold", textDecorationLine:"underline"}} onPress={() => Linking.openURL(np[i].profileUrl)}>
       {np[i].name}</Text>
       <TouchableOpacity 
                 style = {{
