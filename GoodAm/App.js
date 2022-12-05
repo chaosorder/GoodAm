@@ -6,6 +6,7 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {COLORS} from './assets/colors';
 import {ReusableButton} from './components/ReusableButton';
 import {createInitialNotificationChannel, handleNotificationBackgroundEvent, handleNotificationForegroundEvent } from './components/AlarmNotification.js';
+import SnoozeScreen from './components/screens/SnoozeScreen';
 
 //begin auth/login firebase code
 export const logOff = () => {
@@ -32,7 +33,7 @@ onGoogleButtonPress = async () => {
   return auth().signInWithCredential(googleCredential);
 };
 
-createInitialNotificationChannel();
+//createInitialNotificationChannel();
 handleNotificationBackgroundEvent();
 handleNotificationForegroundEvent();
 
@@ -40,6 +41,7 @@ const App = () => {
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
+  const [alarming, setAlarming] = useState(false);
 
   // Handle user state changes
   function onAuthStateChanged(user) {
@@ -48,8 +50,9 @@ const App = () => {
   }
 
   useEffect(() => {
+    console.log('TEST');
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    createInitialNotificationChannel();
+    createInitialNotificationChannel(setAlarming);
     return subscriber; // unsubscribe on unmount
   }, []);
 
@@ -65,19 +68,27 @@ const App = () => {
             this.onGoogleButtonPress().then(() =>
               console.log('Signed in with Google!'),
             )
-          }></ReusableButton>
+        }></ReusableButton>
       </View>
-    );
+    ); 
   }
   //end auth/login code
-
-  return (
-    <>
-      <StatusBar />
-      <RootNavigator email={user.email} />
-    </> //StatusBar allows for the wifi and clock texts to be visible in the app
-    // RootNavigator is the base navigation system for the app, we send in the email in order for other pages to use it.
-  );
+  if (!alarming) {
+    return (
+      <>
+        <StatusBar />
+        <RootNavigator email={user.email} />
+      </> //StatusBar allows for the wifi and clock texts to be visible in the app
+      // RootNavigator is the base navigation system for the app, we send in the email in order for other pages to use it.
+    );
+  } else {
+    return (
+      // Change this to bring up donation component
+      <>
+        <SnoozeScreen />
+      </>
+    );
+  } 
 };
 
 const style = StyleSheet.create({

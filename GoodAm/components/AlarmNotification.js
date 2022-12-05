@@ -1,7 +1,12 @@
 import notifee, { TriggerType, AndroidImportance, AndroidCategory, EventType} from '@notifee/react-native';
+import React from 'react';
+import SnoozeScreen from './screens/SnoozeScreen';
+
+let alarmState;
 
 /* Creates the initial notification channel if one does not already exist */
-export const createInitialNotificationChannel = async () => {
+export const createInitialNotificationChannel = async (setAlarming) => {
+  alarmState = setAlarming;
   await notifee.createChannel({
     id: 'gam',
     name: 'Alarm Channel',
@@ -27,6 +32,8 @@ export const scheduleNotification = async (triggerTime) => {
     title: 'It\'s time to wake up!',
     android: {
       channelId: 'gam',
+      smallIcon: 'ic_small_icon',
+      color: '#0c4767',
       ongoing: true, // User must interact with notification to dismiss
       vibrationPattern: [180, 121, 134, 300, 289, 123, 134, 300, 621, 121, 
         134, 300, 289, 123, 134, 300],
@@ -34,16 +41,15 @@ export const scheduleNotification = async (triggerTime) => {
       importance: AndroidImportance.HIGH,
       loopSound: true,
       fullScreenAction: {
-        id: 'default',
+        id: 'full-screen',
         mainComponent: 'snooze-screen', // Component to be launched when notification occurs
       },
       // Notification buttons
-      actions: [
+      /*actions: [
         {
           title: 'I\'m awake!',
           pressAction: {
             id: 'awake',
-            mainComponent: 'default' // Component to be launched on notification button press
           },
         },
         {
@@ -53,7 +59,7 @@ export const scheduleNotification = async (triggerTime) => {
             mainComponent: 'snooze-screen', // Component to be launched on notification button press
           },
         },
-      ],  
+      ], */  
     },
   }, notificationTrigger);
 };
@@ -63,7 +69,6 @@ export const handleNotificationBackgroundEvent = async () => {
   notifee.onBackgroundEvent(async ({ type, detail }) => {
     if (type === EventType.ACTION_PRESS && detail.pressAction.id == 'snooze') {
       // TODO:: Add routing to snooze page
-      
       await notifee.cancelNotification(detail.notification.id);
     }
     else if (type == EventType.ACTION_PRESS && detail.pressAction.id == 'awake') {
@@ -76,8 +81,12 @@ export const handleNotificationBackgroundEvent = async () => {
 export const handleNotificationForegroundEvent = () => {
   notifee.onForegroundEvent(({ type, detail }) => {
     if (type === EventType.ACTION_PRESS && detail.pressAction.id == 'snooze') {
-      // TODO:: Add routing to snooze page 
+      // TODO:: Add routing to snooze page
+      alarmState(true);
       notifee.cancelNotification(detail.notification.id);
+      return (
+        <SnoozeScreen />
+      );
     }
     else if (type == EventType.ACTION_PRESS && detail.pressAction.id == 'awake'){
       notifee.cancelNotification(detail.notification.id);

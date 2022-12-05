@@ -12,7 +12,7 @@ const CharityScreen = () => {
   return (
     <View style={style.container}>
     {/* <Text style={style.font}>Charity</Text> */}
-      <ReusableButton title="click me!" onPress={() => scheduleNotification(Date.now() + 300 * 10)} />
+      <ReusableButton title="click me!" onPress={() => scheduleNotification(Date.now() + 1000 * 10)} />
     </View>
   );
 };
