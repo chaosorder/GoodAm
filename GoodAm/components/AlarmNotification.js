@@ -5,8 +5,8 @@ import SnoozeScreen from './screens/SnoozeScreen';
 let alarmState;
 
 /* Creates the initial notification channel if one does not already exist */
-export const createInitialNotificationChannel = async (setAlarming) => {
-  alarmState = setAlarming;
+export const createInitialNotificationChannel = async (alarming) => {
+  alarmState = alarming;
   await notifee.createChannel({
     id: 'gam',
     name: 'Alarm Channel',
@@ -45,7 +45,7 @@ export const scheduleNotification = async (triggerTime) => {
         mainComponent: 'snooze-screen', // Component to be launched when notification occurs
       },
       // Notification buttons
-      /*actions: [
+      actions: [
         {
           title: 'I\'m awake!',
           pressAction: {
@@ -56,10 +56,10 @@ export const scheduleNotification = async (triggerTime) => {
           title: 'Just 15 more minutes...',
           pressAction: {
             id: 'snooze',
-            mainComponent: 'snooze-screen', // Component to be launched on notification button press
+            mainComponent: 'default', // Component to be launched on notification button press
           },
         },
-      ], */  
+      ],  
     },
   }, notificationTrigger);
 };
@@ -84,9 +84,6 @@ export const handleNotificationForegroundEvent = () => {
       // TODO:: Add routing to snooze page
       alarmState(true);
       notifee.cancelNotification(detail.notification.id);
-      return (
-        <SnoozeScreen />
-      );
     }
     else if (type == EventType.ACTION_PRESS && detail.pressAction.id == 'awake'){
       notifee.cancelNotification(detail.notification.id);
@@ -97,6 +94,15 @@ export const handleNotificationForegroundEvent = () => {
 /* Cancel the notification that triggered that app to open */
 export const cancelCurrentNotification = async () => {
   // Get notification that triggered app to open
-  const currentNotification = await notifee.getInitialNotification();
-  notifee.cancelNotification(currentNotification.notification.id);
+  const currentNotification = await notifee.getDisplayedNotifications();
+  if (currentNotification.length)
+    notifee.cancelNotification(currentNotification[0].notification.id);
+  alarmState(false);
+}
+
+export const isAlarming = async () => {
+  if (!(await notifee.getDisplayedNotifications()).length)
+    return false;
+
+  return true;
 }

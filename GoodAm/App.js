@@ -1,11 +1,11 @@
 import RootNavigator from './navigation/RootNavigator';
-import React, {useState, useEffect} from 'react';
-import {View, Text, StatusBar, StyleSheet, Button} from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
+import {AppState, View, Text, StatusBar, StyleSheet, Button} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {COLORS} from './assets/colors';
 import {ReusableButton} from './components/ReusableButton';
-import {createInitialNotificationChannel, handleNotificationBackgroundEvent, handleNotificationForegroundEvent } from './components/AlarmNotification.js';
+import {createInitialNotificationChannel, handleNotificationBackgroundEvent, handleNotificationForegroundEvent, isAlarming } from './components/AlarmNotification.js';
 import SnoozeScreen from './components/screens/SnoozeScreen';
 
 //begin auth/login firebase code
@@ -42,6 +42,8 @@ const App = () => {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
   const [alarming, setAlarming] = useState(false);
+  const currentState = useRef(AppState.currentState);
+  const [state, setState] = useState(currentState.current);
 
   // Handle user state changes
   function onAuthStateChanged(user) {
@@ -49,12 +51,32 @@ const App = () => {
     if (initializing) setInitializing(false);
   }
 
-  useEffect(() => {
-    console.log('TEST');
+  useEffect(() => { 
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     createInitialNotificationChannel(setAlarming);
     return subscriber; // unsubscribe on unmount
   }, []);
+
+  useEffect(() => {
+    const handleChange = AppState.addEventListener('change', changedState => {
+      currentState.current = changedState;
+      setState(currentState.current);
+    });
+
+    if (AppState.currentState == 'active')
+    {
+      isAlarming().then(result => {
+        if (result == true)
+        {
+          setAlarming(true); 
+        }
+      });
+    }
+    
+    return () => {
+      handleChange.remove();
+    };
+  }, [AppState.currentState]);
 
   if (initializing) return null;
 

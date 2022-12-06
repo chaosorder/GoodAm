@@ -12,7 +12,7 @@ const snoozeClicked = () => {
 
 const awakeClicked = () => {
   cancelCurrentNotification();
-  BackHandler.exitApp();
+  //BackHandler.exitApp();
 }
 
 const SnoozeScreen = props => {
