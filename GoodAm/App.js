@@ -5,6 +5,7 @@ import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {COLORS} from './assets/colors';
 import {ReusableButton} from './components/ReusableButton';
+import firestore, {firebase} from '@react-native-firebase/firestore';
 import {createInitialNotificationChannel, handleNotificationBackgroundEvent, handleNotificationForegroundEvent, isAlarming } from './components/AlarmNotification.js';
 import SnoozeScreen from './components/screens/SnoozeScreen';
 
@@ -95,11 +96,46 @@ const App = () => {
     ); 
   }
   //end auth/login code
+
+  //initialize database user entry into schema
+  if (user) {
+    firestore()
+      .collection('Users')
+      .doc(user.uid)
+      .get()
+      .then(documentSnapshot => {
+        console.log('User exists: ', documentSnapshot.exists);
+
+        if (documentSnapshot.exists) {
+          console.log('User data: ', documentSnapshot.data());
+        } else {
+          firestore()
+            .collection('Users')
+            .doc(user.uid)
+            .set({
+              email: user.email,
+              uid: user.uid,
+            })
+            .then(() => console.log('User added to database.'));
+          firestore()
+            .collection('Users')
+            .doc(user.uid)
+            .collection('Alarms')
+            .doc('TestDummy')
+            .set({
+              readme:
+                'This is where each alarm will be stored with a unique id.',
+            })
+            .then(() => console.log('Alarm subcollection added'));
+        }
+      });
+  }
+
   if (!alarming) {
     return (
       <>
         <StatusBar />
-        <RootNavigator email={user.email} />
+        <RootNavigator />
       </> //StatusBar allows for the wifi and clock texts to be visible in the app
       // RootNavigator is the base navigation system for the app, we send in the email in order for other pages to use it.
     );

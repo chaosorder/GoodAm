@@ -2,14 +2,29 @@
 Landing screen for the home tab, default landing page for app after login
 */
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {
+  Button,
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Platform,
+} from 'react-native';
 import {COLORS} from '../../assets/colors';
+import {ReusableButton} from '../ReusableButton';
+import {ReusableModal} from '../ReusableModal';
+import {useState} from 'react';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import firestore from '@react-native-firebase/firestore';
+import uuid from 'react-native-uuid';
+import {firebase} from '@react-native-firebase/firestore';
 
 const HomeScreen = props => {
-  //takes the email from user as a prop to display, comes from TabNavigator
+  const email = firebase.auth().currentUser.email;
+
   return (
     <View style={style.container}>
-      <Text style={style.font}>Welcome {props.email}</Text>
+      <Text style={style.font}>Welcome {email}</Text>
       <Text style={style.font}>Home</Text>
     </View>
   );

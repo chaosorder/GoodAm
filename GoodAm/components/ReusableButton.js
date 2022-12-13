@@ -11,6 +11,8 @@ export const ReusableButton = ({
   color,
   backgroundColor,
   width,
+  height,
+  fontSize,
 }) => {
   return (
     <TouchableOpacity
@@ -18,9 +20,12 @@ export const ReusableButton = ({
         style.button,
         backgroundColor && {backgroundColor},
         width && {width},
+        height && {height},
       ]}
       onPress={onPress}>
-      <Text style={[style.text, color && {color}]}>{title}</Text>
+      <Text style={[style.text, color && {color}, fontSize && {fontSize}]}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -38,6 +43,7 @@ const style = StyleSheet.create({
   text: {
     fontWeight: '500',
     fontSize: 20,
+    textAlign: 'center',
     color: COLORS.lemonChiffon,
   },
 });

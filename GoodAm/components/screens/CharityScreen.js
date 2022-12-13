@@ -8,7 +8,7 @@ import {COLORS} from '../../assets/colors';
 import {ReusableButton} from '../ReusableButton';
 import {scheduleNotification} from '../AlarmNotification.js';
 
-const CharityScreen = () => {
+const CharityScreen = props => {
   return (
     <View style={style.container}>
     {/* <Text style={style.font}>Charity</Text> */}

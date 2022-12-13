@@ -136,6 +136,7 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
+
     defaultConfig {
         applicationId "com.goodam"
         minSdkVersion rootProject.ext.minSdkVersion
