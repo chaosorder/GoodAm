@@ -20,15 +20,37 @@ export const createInitialNotificationChannel = async (alarming) => {
   });
 };
 
+function parseTime(timeString) {	
+	if (timeString == '') return null;
+	
+	var time = timeString.match(/(\d+)(:(\d\d))?\s*(p?)/i);	
+	if (time == null) return null;
+	
+	var hours = parseInt(time[1],10);	 
+	if (hours == 12 && !time[4]) {
+		  hours = 0;
+	}
+	else {
+		hours += (hours < 12 && time[4])? 12 : 0;
+	}	
+	var d = new Date();    	    	
+	d.setHours(hours);
+	d.setMinutes(parseInt(time[3],10) || 0);
+	d.setSeconds(0, 0);	 
+	return d.getTime();
+}
+
 /* Schedule a notification to be displayed at a specific time */
-export const scheduleNotification = async (triggerTime) => {
+export const scheduleNotification = async (alarmId, triggerTime) => {
   // TODO:: Add more flexible scheduling (Recurring, which days of the week, etc.)
+  console.log(parseTime(triggerTime));
   const notificationTrigger = {
     type: TriggerType.TIMESTAMP,
-    timestamp: triggerTime,
+    timestamp: parseTime(triggerTime),
   };
   
   await notifee.createTriggerNotification({
+    id: alarmId,
     title: 'It\'s time to wake up!',
     android: {
       channelId: 'gam',
@@ -98,6 +120,10 @@ export const cancelCurrentNotification = async () => {
   if (currentNotification.length)
     notifee.cancelNotification(currentNotification[0].notification.id);
   alarmState(false);
+}
+
+export const cancelScheduledNotification = (alarmId) => {
+  notifee.cancelNotification(alarmId);
 }
 
 export const isAlarming = async () => {
