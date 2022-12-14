@@ -1,3 +1,12 @@
+/**
+* AUTHOR(S): Noah Stewart
+* CREATED: 11/18/2022
+* UPDATED: 12/14/2022
+* 
+* Module for handling the creation, deletion, and tracking of alarm 
+* notifications. 
+*/
+
 import notifee, { TriggerType, 
   AndroidImportance, 
   AndroidCategory, 
@@ -36,7 +45,8 @@ export const createInitialNotificationChannel = async (alarming) => {
 */
 const parseTime = (timeString) => {	
   if (timeString == '') return null;
-	
+
+  // Remove all non integers from string
 	var time = timeString.match(/(\d+)(:(\d\d))?\s*(p?)/i);	
 	if (time == null) return null;
 	

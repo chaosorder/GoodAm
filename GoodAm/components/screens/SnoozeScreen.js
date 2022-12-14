@@ -1,3 +1,11 @@
+/**
+* AUTHORS(S): Noah Stewart
+* CREATED: 11/28/2022
+* UPDATED: 12/14/2022
+* 
+* Screen that prompts user to interact with their alarm while it is going off.
+*/ 
+
 import {AppRegistry, Linking} from 'react-native';
 import React from 'react';
 import {View, Text, StyleSheet, BackHandler} from 'react-native';
@@ -6,25 +14,25 @@ import {ReusableButton} from '../ReusableButton';
 import {cancelCurrentNotification} from '../AlarmNotification';
 
 /**
- * Cancels alarm notification and directs to charity donation page.
- */
+* Cancels alarm notification and directs to charity donation page.
+*/
 const snoozeClicked = () => {
   cancelCurrentNotification();
   Linking.openURL('https://www.every.org/givedirectly#/donate/card');
 };
 
 /**
- * Cancels alarm notification.
- */
+* Cancels alarm notification.
+*/
 const awakeClicked = () => {
   cancelCurrentNotification();
 }
 
 /**
- * Screen the user is taken to if their alarm goes off.
- * 
- * @returns         snooze screen page
- */
+* Screen the user is taken to if their alarm goes off.
+* 
+* @returns         snooze screen page
+*/
 const SnoozeScreen = props => {
   return (
     <View style={style.container}>
