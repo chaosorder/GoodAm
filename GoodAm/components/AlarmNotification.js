@@ -58,11 +58,18 @@ const parseTime = (timeString) => {
 		hours += (hours < 12 && time[4])? 12 : 0;
 	}
 
-	var d = new Date();    	    	
-	d.setHours(hours);
-	d.setMinutes(parseInt(time[3],10) || 0);
-	d.setSeconds(0, 0);	 
-	return d.getTime();
+	var parsedTime = new Date();    	    	
+	parsedTime.setHours(hours);
+	parsedTime.setMinutes(parseInt(time[3],10) || 0);
+	parsedTime.setSeconds(0, 0);
+  
+  // If time was in the past, correct it by setting it for the following day.
+  if (parsedTime < Date.now())
+  {
+    parsedTime.setDate(parsedTime.getDate() + 1);
+  }
+
+	return parsedTime.getTime();
 }
 
 /**

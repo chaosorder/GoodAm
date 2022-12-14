@@ -11,8 +11,7 @@ import {scheduleNotification} from '../AlarmNotification.js';
 const CharityScreen = props => {
   return (
     <View style={style.container}>
-    {/* <Text style={style.font}>Charity</Text> */}
-      <ReusableButton title="click me!" onPress={() => scheduleNotification(Date.now() + 1000 * 10)} />
+    <Text style={style.font}>Charity</Text>
     </View>
   );
 };
