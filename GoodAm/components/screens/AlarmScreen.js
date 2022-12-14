@@ -22,6 +22,7 @@ import {firebase} from '@react-native-firebase/firestore';
 import uuid from 'react-native-uuid';
 import {Alarm} from '../Alarm';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import { cancelScheduledNotification, scheduleNotification } from '../AlarmNotification';
 
 const AlarmScreen = props => {
   const [isModalVisible, setIsModalVisible] = useState(false); //state that allows the modal to pop up and disappear upon button presses
@@ -146,7 +147,13 @@ const AlarmScreen = props => {
   };
 
   const toggleAlarm = key => {
-    console.log(key);
+    console.log(!alarms[key].active);
+    if (!alarms[key].active == true) {
+      scheduleNotification(key, alarms[key].time);
+    }
+    else {
+      cancelScheduledNotification(key);
+    }
     newAlarms = {...alarms};
     newAlarms[key] = {time: alarms[key].time, active: !alarms[key].active};
     setAlarms(newAlarms);

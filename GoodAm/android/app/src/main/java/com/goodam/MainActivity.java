@@ -4,7 +4,7 @@ import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 import android.os.Bundle;
-
+import io.invertase.notifee.NotifeeApiModule;
 
 public class MainActivity extends ReactActivity {
 
@@ -14,7 +14,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "GoodAm";
+    return NotifeeApiModule.getMainComponent("GoodAm");
   }
 
   @Override

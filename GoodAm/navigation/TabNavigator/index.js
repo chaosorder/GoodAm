@@ -14,6 +14,7 @@ import firestore from '@react-native-firebase/firestore';
 import {firebase} from '@react-native-firebase/firestore';
 import uuid from 'react-native-uuid';
 Icon.loadFont().then(); //not perfect, appears to send a warning to app but still has icons appear
+//import SnoozeScreen from '../../components/screens/SnoozeScreen';
 
 const Tab = createBottomTabNavigator();
 
