@@ -23,6 +23,7 @@ import uuid from 'react-native-uuid';
 import {Alarm} from '../Alarm';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import { cancelScheduledNotification, scheduleNotification } from '../AlarmNotification';
+import {CustomTimerPicker} from '../CustomTimerPicker';
 
 const AlarmScreen = props => {
   const [isModalVisible, setIsModalVisible] = useState(false); //state that allows the modal to pop up and disappear upon button presses
@@ -111,16 +112,21 @@ const AlarmScreen = props => {
   };
 
   const onChangeTime = (event, selectedTime) => {
+    console.log(selectedTime);
     const currentTime = selectedTime;
     setTime(currentTime);
   };
 
-  const showMode = currentMode => {
+  const showMode = (currentMode) => {
+    console.log("HERE");
     DateTimePickerAndroid.open({
-      value: date,
+      value: time,
       mode: currentMode,
       display: 'spinner',
       is24Hour: false,
+      value: time,
+      mode: "time",
+      onChange: onChangeTime
     });
   };
 
@@ -268,7 +274,7 @@ const AlarmScreen = props => {
                   <ReusableButton
                     style={style.popupText}
                     onPress={showTimePicker}
-                    title={date.toLocaleTimeString()}
+                    title={time.toLocaleTimeString()}
                     onChange={onChangeTime}
                   />
                 </View>
