@@ -1,6 +1,9 @@
 /*
 Landing screen for the alarms tab, will house alarms 
 to be toggled and the ability to create alarms.
+// Authors:          Uma Parhar, Cameron Legrand, Ojas Sethi
+// Last Revision:    12/13/2022
+/////////////////////////////////////////////////////////////
 */
 import React, {useState} from 'react';
 import {View, Text, TextInput, Platform} from 'react-native';
@@ -19,7 +22,7 @@ const AlarmScreen = () => {
   const [name, setName] = useState('');
   
   //days list represents what days the user has selected that this alarm go off on
-  // 0 element starts with Sunday, 6 being Saturday
+  //0 element starts with Sunday, 6 being Saturday
   const [days, changeDays] = useState({
     0: 0, 
     1: 0,
@@ -30,6 +33,9 @@ const AlarmScreen = () => {
     6: 0,
   });
 
+  //UMA
+  //initializes all of the buttons to start with color yellow. 
+  //TO TEST THIS: Verify that upon opening the application, all the buttons begin as the color yellow
   const [btnColor, changeBtnColor] = useState({
     0: COLORS.naplesYellow,
     1: COLORS.naplesYellow,
@@ -40,8 +46,9 @@ const AlarmScreen = () => {
     6: COLORS.naplesYellow,
   });
 
+
+  //CAMERON
   const handleModal = () => {
-    //cr: reset modal explanation
     setIsModalVisible(() => !isModalVisible);
     setName('');
     setDate(new Date(Date.now()));
@@ -55,6 +62,7 @@ const AlarmScreen = () => {
   //get the users ID from database
   const uid = firebase.auth().currentUser.uid;
 
+  //CAMERON
   const addAlarmData = (time, date, name, days) => {
     // have this function add alarm data into database
     const alarmID = uuid.v4();
@@ -82,14 +90,22 @@ const AlarmScreen = () => {
     handleModal();
   };
 
-  const buttonHandle = day => {
-    //cr: possible name change
+
+  //UMA
+  //This method is called when the user clicks on a "day" button.
+  //TEST: To test this, open up the application->create a new alarm->toggle the day button on and off. Verify that the 
+  //colors change appropriately, and that the database reflected the toggling
+  const handleDayButtonPress = day => {
     const toChangeDay = day;
+    //If the button was already selected, clear the selection, as they don't want this day include in their alarm settings
+    //If not selected, add this day to the alarm settings, and update the corresponding state variables  
     const val = days[toChangeDay] == 0 ? 1 : 0;
     const col = val == 0 ? COLORS.naplesYellow : COLORS.opal;
     changeDays({...days, [toChangeDay]: val});
     changeBtnColor({...btnColor, [toChangeDay]: col});
   };
+
+  //START UMA
 
   //start date of alarm
   const [date, setDate] = useState(new Date());
@@ -119,17 +135,22 @@ const AlarmScreen = () => {
     });
   };
 
+  //Shows the android date picker if the device accessing the application has android OS
   const showDatePickerAndroid = () => {
     if (Platform.OS == 'android') {
       showMode('date');
     }
   };
 
+ //Shows the android time picker if the device accessing the application has android OS
   const showTimePicker = () => {
     if (Platform.OS == 'android') {
       showMode('time');
     }
   };
+
+  //END UMA
+
 
   return (
     <View style={style.container}>
@@ -198,49 +219,49 @@ const AlarmScreen = () => {
 
             <View style={style.buttonGroup}>
               <ReusableButton //small edit, changed so that sunday is day zero, so we can use a built in date method
-                onPress={() => buttonHandle(0)}
+                onPress={() => handleDayButtonPress(0)}
                 backgroundColor={btnColor[0]}
                 color={COLORS.indigoDye}
                 title="Su"
                 width="12%"
               />
               <ReusableButton
-                onPress={() => buttonHandle(1)}
+                onPress={() => handleDayButtonPress(1)}
                 backgroundColor={btnColor[1]}
                 color={COLORS.indigoDye}
                 title="M"
                 width="12%"
               />
               <ReusableButton
-                onPress={() => buttonHandle(2)}
+                onPress={() => handleDayButtonPress(2)}
                 backgroundColor={btnColor[2]}
                 color={COLORS.indigoDye}
                 title="Tu"
                 width="12%"
               />
               <ReusableButton
-                onPress={() => buttonHandle(3)}
+                onPress={() => handleDayButtonPress(3)}
                 backgroundColor={btnColor[3]}
                 color={COLORS.indigoDye}
                 title="W"
                 width="12%"
               />
               <ReusableButton
-                onPress={() => buttonHandle(4)}
+                onPress={() => handleDayButtonPress(4)}
                 backgroundColor={btnColor[4]}
                 color={COLORS.indigoDye}
                 title="Th"
                 width="12%"
               />
               <ReusableButton
-                onPress={() => buttonHandle(5)}
+                onPress={() => handleDayButtonPress(5)}
                 backgroundColor={btnColor[5]}
                 color={COLORS.indigoDye}
                 title="F"
                 width="12%"
               />
               <ReusableButton
-                onPress={() => buttonHandle(6)}
+                onPress={() => handleDayButtonPress(6)}
                 backgroundColor={btnColor[6]}
                 color={COLORS.indigoDye}
                 title="Sa"
