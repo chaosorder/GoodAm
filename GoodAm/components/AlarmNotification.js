@@ -64,12 +64,12 @@ const parseTime = (timeString) => {
 	parsedTime.setSeconds(0, 0);
   
   // If time was in the past, correct it by setting it for the following day.
-  if (parsedTime + (6000 * 10) < Date.now())
+  if (parsedTime < Date.now())
   {
     parsedTime.setDate(parsedTime.getDate() + 1);
   }
 
-	return parsedTime.getTime() + 6000 * 10;
+	return parsedTime.getTime();
 }
 
 /**

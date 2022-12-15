@@ -23,7 +23,6 @@ import uuid from 'react-native-uuid';
 import {Alarm} from '../Alarm';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import { cancelScheduledNotification, scheduleNotification } from '../AlarmNotification';
-import {CustomTimerPicker} from '../CustomTimerPicker';
 
 const AlarmScreen = props => {
   const [isModalVisible, setIsModalVisible] = useState(false); //state that allows the modal to pop up and disappear upon button presses
@@ -112,13 +111,11 @@ const AlarmScreen = props => {
   };
 
   const onChangeTime = (event, selectedTime) => {
-    console.log(selectedTime);
     const currentTime = selectedTime;
     setTime(currentTime);
   };
 
   const showMode = (currentMode) => {
-    console.log("HERE");
     DateTimePickerAndroid.open({
       value: time,
       mode: currentMode,
@@ -150,6 +147,7 @@ const AlarmScreen = props => {
     newAlarms = {...alarms};
     newAlarms[key] = {time: time, active: true};
     setAlarms(newAlarms);
+    scheduleNotification(key, time);
   };
 
   const toggleAlarm = key => {
