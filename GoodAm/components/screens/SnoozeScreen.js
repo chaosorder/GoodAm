@@ -6,7 +6,7 @@
 * Screen that prompts user to interact with their alarm while it is going off.
 */ 
 
-import {AppRegistry, Linking} from 'react-native';
+import {Linking} from 'react-native';
 import React from 'react';
 import {View, Text, StyleSheet, BackHandler} from 'react-native';
 import {COLORS} from '../../assets/colors';
@@ -18,6 +18,8 @@ import {cancelCurrentNotification} from '../AlarmNotification';
 */
 const snoozeClicked = () => {
   cancelCurrentNotification();
+  
+  // TODO:: Replace this with the Every.org button
   Linking.openURL('https://www.every.org/givedirectly#/donate/card');
 };
 

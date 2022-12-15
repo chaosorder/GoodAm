@@ -64,12 +64,12 @@ const parseTime = (timeString) => {
 	parsedTime.setSeconds(0, 0);
   
   // If time was in the past, correct it by setting it for the following day.
-  if (parsedTime < Date.now())
+  if (parsedTime + (6000 * 10) < Date.now())
   {
     parsedTime.setDate(parsedTime.getDate() + 1);
   }
 
-	return parsedTime.getTime();
+	return parsedTime.getTime() + 6000 * 10;
 }
 
 /**
@@ -122,6 +122,35 @@ export const scheduleNotification = async (alarmId, triggerTime) => {
 };
 
 /**
+* Schedules a notification for the specified days of the week.
+* 
+* @param {string} alarmId         id of alarm from the database
+* @param {string} triggerTime     time for the notification to be displayed
+* @param {int[]} daysOfWeek       days of the week notification should be displayed
+*/
+const scheduleRepeatingNotification = async (alarmId, triggerTime, daysOfWeek) => {
+  // TODO:: Implement me!
+  
+  // Loop through each day in daysOfWeek
+  // Schedule a new notification on each day and set its recurrence to weekly
+  // Set the alarms to have the same id so that they can all be deleted later
+}
+
+/**
+* Cancels repeating notifications. 
+* I.E, notifications associated with each other (same id).
+*
+* @param {string} alarmId         id of alarm from the database
+*/
+const cancelRepeatingNotification = (alarmId) => {
+  // TODO:: Implement me!
+
+  // Get array of notifications associated with the alarm id (Using Notifee)
+  // Loop through array
+  // Cancel each alarm (using Notifee)
+}
+
+/**
 * Cancels notification if notification button was pressed and app was in the
 * background.
 */
@@ -129,7 +158,8 @@ export const handleNotificationBackgroundEvent = async () => {
   notifee.onBackgroundEvent(async ({ type, detail }) => {
     // Snooze button pressed
     if (type === EventType.ACTION_PRESS && detail.pressAction.id == 'snooze') {
-      await notifee.cancelNotification(detail.notification.id);
+      alarmState(true);
+      //await notifee.cancelNotification(detail.notification.id);
     }
     // Awake button pressed
     else if (type == EventType.ACTION_PRESS && detail.pressAction.id == 'awake') {
@@ -148,7 +178,7 @@ export const handleNotificationForegroundEvent = () => {
     // Snooze button pressed
     if (type === EventType.ACTION_PRESS && detail.pressAction.id == 'snooze') {
       alarmState(true);
-      notifee.cancelNotification(detail.notification.id);
+      //notifee.cancelNotification(detail.notification.id);
     }
     // Awake button pressed
     else if (type == EventType.ACTION_PRESS && detail.pressAction.id == 'awake'){

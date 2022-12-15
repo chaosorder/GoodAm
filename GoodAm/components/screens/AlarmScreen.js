@@ -147,7 +147,6 @@ const AlarmScreen = props => {
   };
 
   const toggleAlarm = key => {
-    console.log(!alarms[key].active);
     if (!alarms[key].active == true) {
       scheduleNotification(key, alarms[key].time);
     }
